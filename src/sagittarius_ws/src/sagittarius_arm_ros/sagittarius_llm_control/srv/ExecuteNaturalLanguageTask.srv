@@ -1,0 +1,7 @@
+string text
+bool plan_only
+---
+bool success
+string summary
+string plan_json
+string error

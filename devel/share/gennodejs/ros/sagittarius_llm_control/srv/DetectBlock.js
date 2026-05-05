@@ -1,0 +1,295 @@
+// Auto-generated. Do not edit!
+
+// (in-package sagittarius_llm_control.srv)
+
+
+"use strict";
+
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
+
+//-----------------------------------------------------------
+
+let geometry_msgs = _finder('geometry_msgs');
+
+//-----------------------------------------------------------
+
+class DetectBlockRequest {
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.target_label = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('target_label')) {
+        this.target_label = initObj.target_label
+      }
+      else {
+        this.target_label = '';
+      }
+    }
+  }
+
+  static serialize(obj, buffer, bufferOffset) {
+    // Serializes a message object of type DetectBlockRequest
+    // Serialize message field [target_label]
+    bufferOffset = _serializer.string(obj.target_label, buffer, bufferOffset);
+    return bufferOffset;
+  }
+
+  static deserialize(buffer, bufferOffset=[0]) {
+    //deserializes a message object of type DetectBlockRequest
+    let len;
+    let data = new DetectBlockRequest(null);
+    // Deserialize message field [target_label]
+    data.target_label = _deserializer.string(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    let length = 0;
+    length += _getByteLength(object.target_label);
+    return length + 4;
+  }
+
+  static datatype() {
+    // Returns string type for a service object
+    return 'sagittarius_llm_control/DetectBlockRequest';
+  }
+
+  static md5sum() {
+    //Returns md5sum for a message object
+    return '9ad3ebebe1c71e72c4cd6a2be519ffd8';
+  }
+
+  static messageDefinition() {
+    // Returns full string definition for message
+    return `
+    string target_label
+    
+    `;
+  }
+
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new DetectBlockRequest(null);
+    if (msg.target_label !== undefined) {
+      resolved.target_label = msg.target_label;
+    }
+    else {
+      resolved.target_label = ''
+    }
+
+    return resolved;
+    }
+};
+
+class DetectBlockResponse {
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.success = null;
+      this.detected_label = null;
+      this.confidence = null;
+      this.center_u = null;
+      this.center_v = null;
+      this.position = null;
+      this.error = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('success')) {
+        this.success = initObj.success
+      }
+      else {
+        this.success = false;
+      }
+      if (initObj.hasOwnProperty('detected_label')) {
+        this.detected_label = initObj.detected_label
+      }
+      else {
+        this.detected_label = '';
+      }
+      if (initObj.hasOwnProperty('confidence')) {
+        this.confidence = initObj.confidence
+      }
+      else {
+        this.confidence = 0.0;
+      }
+      if (initObj.hasOwnProperty('center_u')) {
+        this.center_u = initObj.center_u
+      }
+      else {
+        this.center_u = 0;
+      }
+      if (initObj.hasOwnProperty('center_v')) {
+        this.center_v = initObj.center_v
+      }
+      else {
+        this.center_v = 0;
+      }
+      if (initObj.hasOwnProperty('position')) {
+        this.position = initObj.position
+      }
+      else {
+        this.position = new geometry_msgs.msg.Point();
+      }
+      if (initObj.hasOwnProperty('error')) {
+        this.error = initObj.error
+      }
+      else {
+        this.error = '';
+      }
+    }
+  }
+
+  static serialize(obj, buffer, bufferOffset) {
+    // Serializes a message object of type DetectBlockResponse
+    // Serialize message field [success]
+    bufferOffset = _serializer.bool(obj.success, buffer, bufferOffset);
+    // Serialize message field [detected_label]
+    bufferOffset = _serializer.string(obj.detected_label, buffer, bufferOffset);
+    // Serialize message field [confidence]
+    bufferOffset = _serializer.float32(obj.confidence, buffer, bufferOffset);
+    // Serialize message field [center_u]
+    bufferOffset = _serializer.int32(obj.center_u, buffer, bufferOffset);
+    // Serialize message field [center_v]
+    bufferOffset = _serializer.int32(obj.center_v, buffer, bufferOffset);
+    // Serialize message field [position]
+    bufferOffset = geometry_msgs.msg.Point.serialize(obj.position, buffer, bufferOffset);
+    // Serialize message field [error]
+    bufferOffset = _serializer.string(obj.error, buffer, bufferOffset);
+    return bufferOffset;
+  }
+
+  static deserialize(buffer, bufferOffset=[0]) {
+    //deserializes a message object of type DetectBlockResponse
+    let len;
+    let data = new DetectBlockResponse(null);
+    // Deserialize message field [success]
+    data.success = _deserializer.bool(buffer, bufferOffset);
+    // Deserialize message field [detected_label]
+    data.detected_label = _deserializer.string(buffer, bufferOffset);
+    // Deserialize message field [confidence]
+    data.confidence = _deserializer.float32(buffer, bufferOffset);
+    // Deserialize message field [center_u]
+    data.center_u = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [center_v]
+    data.center_v = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [position]
+    data.position = geometry_msgs.msg.Point.deserialize(buffer, bufferOffset);
+    // Deserialize message field [error]
+    data.error = _deserializer.string(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    let length = 0;
+    length += _getByteLength(object.detected_label);
+    length += _getByteLength(object.error);
+    return length + 45;
+  }
+
+  static datatype() {
+    // Returns string type for a service object
+    return 'sagittarius_llm_control/DetectBlockResponse';
+  }
+
+  static md5sum() {
+    //Returns md5sum for a message object
+    return '9c128f12f77a2059644c6c86a5e19e85';
+  }
+
+  static messageDefinition() {
+    // Returns full string definition for message
+    return `
+    bool success
+    string detected_label
+    float32 confidence
+    int32 center_u
+    int32 center_v
+    geometry_msgs/Point position
+    string error
+    
+    
+    ================================================================================
+    MSG: geometry_msgs/Point
+    # This contains the position of a point in free space
+    float64 x
+    float64 y
+    float64 z
+    
+    `;
+  }
+
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new DetectBlockResponse(null);
+    if (msg.success !== undefined) {
+      resolved.success = msg.success;
+    }
+    else {
+      resolved.success = false
+    }
+
+    if (msg.detected_label !== undefined) {
+      resolved.detected_label = msg.detected_label;
+    }
+    else {
+      resolved.detected_label = ''
+    }
+
+    if (msg.confidence !== undefined) {
+      resolved.confidence = msg.confidence;
+    }
+    else {
+      resolved.confidence = 0.0
+    }
+
+    if (msg.center_u !== undefined) {
+      resolved.center_u = msg.center_u;
+    }
+    else {
+      resolved.center_u = 0
+    }
+
+    if (msg.center_v !== undefined) {
+      resolved.center_v = msg.center_v;
+    }
+    else {
+      resolved.center_v = 0
+    }
+
+    if (msg.position !== undefined) {
+      resolved.position = geometry_msgs.msg.Point.Resolve(msg.position)
+    }
+    else {
+      resolved.position = new geometry_msgs.msg.Point()
+    }
+
+    if (msg.error !== undefined) {
+      resolved.error = msg.error;
+    }
+    else {
+      resolved.error = ''
+    }
+
+    return resolved;
+    }
+};
+
+module.exports = {
+  Request: DetectBlockRequest,
+  Response: DetectBlockResponse,
+  md5sum() { return '2067dc8c08ea01b0be7723ab7195563c'; },
+  datatype() { return 'sagittarius_llm_control/DetectBlock'; }
+};

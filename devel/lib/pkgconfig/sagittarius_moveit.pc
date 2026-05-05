@@ -1,0 +1,8 @@
+prefix=/home/robotics/team8/devel
+
+Name: sagittarius_moveit
+Description: Description of sagittarius_moveit
+Version: 0.3.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,9 @@
+string target_label
+---
+bool success
+string detected_label
+float32 confidence
+int32 center_u
+int32 center_v
+geometry_msgs/Point position
+string error

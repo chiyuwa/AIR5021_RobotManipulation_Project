@@ -1,0 +1,112 @@
+deepseek:
+  api_key_env: DEEPSEEK_API_KEY
+  api_url: https://api.deepseek.com/v1
+  model: deepseek-chat
+  timeout_sec: 60
+  temperature: 0.1
+  max_tokens: 1200
+
+runtime:
+  robot_name: sgr532
+  arm_group: sagittarius_arm
+  gripper_group: sagittarius_gripper
+  reference_frame: sgr532/base_link
+  position_tolerance: 0.003
+  orientation_tolerance: 0.03
+  velocity_scaling: 0.2
+  acceleration_scaling: 0.2
+  execution_settle_sec: 0.5
+
+safety:
+  max_steps: 20
+  max_translation_per_step: 0.25
+  max_rotation_per_step: 3.14
+  workspace:
+    x: [0.05, 0.38]
+    y: [-0.25, 0.25]
+    z: [0.02, 0.32]
+
+named_poses:
+  home: home
+  up: up
+  sleep: sleep
+
+gripper_commands:
+  open: [0.0, 0.0]
+  middle: [-0.014, -0.014]
+  close: [-0.028, -0.028]
+
+orientation_presets:
+  keep_current: "__KEEP_CURRENT__"
+  vertical_down: [0.0, 1.57, 0.0]
+  front_forward: [0.0, 0.0, 0.0]
+
+vision:
+  enabled: true
+  service_name: /sgr532/detect_block
+  image_topic: /usb_cam/image_raw
+  model_path: /home/robotics/team8/src/sagittarius_ws/src/sagittarius_arm_ros/sagittarius_llm_control/models/yolov8s-worldv2.pt
+  calibration_file: /home/robotics/team8/src/sagittarius_ws/src/sagittarius_arm_ros/sagittarius_perception/sagittarius_object_color_detector/config/vision_config.yaml
+  confidence_threshold: 0.05
+  max_image_age_sec: 1.5
+  planar_z: 0.02
+  position_offset_xyz: [0.05, 0.0, 0.0]
+  observation_waypoint: ""
+  detect_from_current_pose_first: true
+  place_target_name: place_ready
+  grasp_orientation_preset: vertical_down
+  pregrasp_z: 0.16
+  pick_z: 0.035
+  lift_z: 0.18
+  gripper_open_command: open
+  gripper_close_command: close
+  default_target_label: block
+  detection_labels: [block, cube, box]
+  world_class_prompts:
+    - block
+    - cube
+    - cuboid
+    - box
+    - small box
+    - wooden block
+    - wooden cube
+    - toy block
+    - building block
+    - colored block
+  label_aliases:
+    wooden_block: block
+    toy_block: block
+    cube: block
+    cuboid: block
+    box: block
+    carton: block
+
+named_waypoints:
+  observation:
+    position: [0.2448, 0.0007, 0.1789]
+    orientation_rpy: [3.1124, 1.5202, 3.1071]
+    description: Observation pose captured from current robot state.
+  pick_ready:
+    position: [0.1253, 0.0780, 0.1554]
+    orientation_preset: vertical_down
+    description: Example grasp-ready pose. Replace with your calibrated point.
+  pick_ready_2:
+    position: [0.1550, 0.1300, 0.1554]
+    orientation_preset: vertical_down
+    description: Second grasp-ready pose on the left side of the workspace. Replace with your calibrated point.
+  pick_ready_3:
+    position: [0.1550, -0.0600, 0.1554]
+    orientation_preset: vertical_down
+    description: Third grasp-ready pose on the right side of the workspace. Replace with your calibrated point.
+  place_ready:
+    position: [0.18, -0.14, 0.12]
+    orientation_preset: vertical_down
+    description: Example place pose. Replace with your calibrated point.
+  place_ready_2:
+    position: [0.2200, 0.0000, 0.1200]
+    orientation_preset: vertical_down
+    description: Second place pose near the center of the workspace. Replace with your calibrated point.
+  place_ready_3:
+    position: [0.2200, 0.1400, 0.1200]
+    orientation_preset: vertical_down
+    description: Third place pose near the upper side of the workspace. Replace with your calibrated point.

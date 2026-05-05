@@ -1,0 +1,8 @@
+prefix=/home/robotics/team8/install
+
+Name: sagittarius_descriptions
+Description: Description of sagittarius_descriptions
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

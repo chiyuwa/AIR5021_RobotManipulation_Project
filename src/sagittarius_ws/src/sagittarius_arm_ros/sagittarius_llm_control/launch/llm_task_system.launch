@@ -1,0 +1,54 @@
+<launch>
+  <arg name="robot_name" default="sgr532" />
+  <arg name="robot_model" default="$(arg robot_name)" />
+  <arg name="use_rviz" default="true" />
+  <arg name="start_moveit" default="true" />
+  <arg name="start_camera" default="false" />
+  <arg name="start_vision" default="false" />
+  <arg name="deepseek_api_key" default="" />
+  <arg name="deepseek_model" default="deepseek-chat" />
+  <arg name="camera_device" default="/dev/usb_cam" />
+  <arg name="vision_image_topic" default="/usb_cam/image_raw" />
+  <arg name="vision_model_path" default="/home/robotics/team8/src/sagittarius_ws/src/sagittarius_arm_ros/sagittarius_llm_control/models/yolov8s-worldv2.pt" />
+  <arg name="vision_calibration_file" default="$(find sagittarius_object_color_detector)/config/vision_config.yaml" />
+
+  <include if="$(arg start_moveit)" file="$(find sagittarius_moveit)/launch/demo_true.launch">
+    <arg name="robot_name" value="$(arg robot_name)" />
+    <arg name="robot_model" value="$(arg robot_model)" />
+    <arg name="use_rviz" value="$(arg use_rviz)" />
+  </include>
+
+  <include if="$(arg start_camera)" file="$(find sagittarius_object_color_detector)/launch/usb_cam.launch">
+    <arg name="video_dev" value="$(arg camera_device)" />
+  </include>
+
+  <node if="$(arg start_vision)"
+        pkg="sagittarius_llm_control"
+        type="yolo_block_detector.py"
+        name="yolo_block_detector"
+        ns="$(arg robot_name)"
+        output="screen">
+    <rosparam command="load" file="$(find sagittarius_llm_control)/config/runtime.yaml" />
+    <param name="vision/service_name" value="/$(arg robot_name)/detect_block" />
+    <param name="vision/image_topic" value="$(arg vision_image_topic)" />
+    <param name="vision/model_path" value="$(arg vision_model_path)" />
+    <param name="vision/calibration_file" value="$(arg vision_calibration_file)" />
+  </node>
+
+  <node pkg="sagittarius_llm_control"
+        type="llm_task_server.py"
+        name="llm_task_server"
+        ns="$(arg robot_name)"
+        output="screen">
+    <param name="prompt_template_path" value="$(find sagittarius_llm_control)/prompts/task_planner_system.txt" />
+    <rosparam command="load" file="$(find sagittarius_llm_control)/config/runtime.yaml" />
+    <param name="deepseek/api_key" value="$(arg deepseek_api_key)" />
+    <param name="deepseek/model" value="$(arg deepseek_model)" />
+    <param name="runtime/robot_name" value="$(arg robot_name)" />
+    <param name="runtime/reference_frame" value="$(arg robot_name)/base_link" />
+    <param name="vision/service_name" value="/$(arg robot_name)/detect_block" />
+    <param name="vision/image_topic" value="$(arg vision_image_topic)" />
+    <param name="vision/model_path" value="$(arg vision_model_path)" />
+    <param name="vision/calibration_file" value="$(arg vision_calibration_file)" />
+  </node>
+</launch>

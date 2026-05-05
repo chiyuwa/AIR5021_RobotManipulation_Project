@@ -1,0 +1,8 @@
+prefix=/home/robotics/team8/devel
+
+Name: sdk_sagittarius_arm
+Description: Description of sdk_sagittarius_arm
+Version: 0.0.1
+Cflags: -I/home/robotics/team8/devel/include -I/home/robotics/team8/src/sagittarius_ws/src/sagittarius_arm_ros/sdk_sagittarius_arm/include -I/usr/include
+Libs: -L${prefix}/lib -lsdk_sagittarius_arm_lib /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
+Requires: roscpp sensor_msgs diagnostic_updater dynamic_reconfigure
